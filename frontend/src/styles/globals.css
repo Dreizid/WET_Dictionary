@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background-color: theme(colors.slate.800);
+  --foreground-color: theme(colors.white);
+  --primary-color: theme(colors.slate.600);
+  --secondary-color: theme(colors.slate.400);
+  --field-color: #2A3951;
+  --secondary-foreground-color: #4AA4C9;
+  --gradient-one: theme(colors.slate.700);
+  background-image: url("../public/Vector.png");
+  background-repeat: no-repeat, repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: theme(colors.slate.800);
+    --foreground-color: theme(colors.white);
+    --primary-color: theme(colors.slate.600);
+    --secondary-color: theme(colors.slate.400);
+  }
+}
