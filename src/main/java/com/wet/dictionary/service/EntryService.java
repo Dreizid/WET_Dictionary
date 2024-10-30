@@ -26,8 +26,8 @@ public class EntryService {
     trie.insertEntries(dataList);
   }
 
-  public List<Entry> testQuery(String test) {
-    return trie.query(test);
+  public List<Entry> fetchByWord(String query) {
+    return trie.query(query);
   }
 
   public List<Entry> fetchAllData() {
@@ -51,20 +51,6 @@ public class EntryService {
     return sortedData;
   }
 
-  public List<Entry> fetchByWord(String word) {
-    List<Entry> matchedWords = new ArrayList<>();
-    for (Entry entry : dataList) {
-      List<String> translatedWords = WordExtractor.extractWords(entry);
-      translatedWords.forEach((translatedWord) -> {
-        System.out.println(translatedWord);
-        if (translatedWord.contains(word)) {
-          matchedWords.add(entry);
-        }
-      });
-    }
-    return matchedWords;
-  }
-
   private String getWord(Entry entry, String language) {
     switch (language) {
       case "waray":
@@ -76,16 +62,5 @@ public class EntryService {
       default:
         return entry.getWaray();
     } 
-  }
-
-  public static void main(String[] args) {
-    EntryService test = new EntryService();
-    
-    long startTime = System.currentTimeMillis();
-    //test.fetchByWord("mabigat");
-    List<Entry> testing = test.testQuery("a");
-    long endTime = System.currentTimeMillis();
-    long duration = endTime - startTime;
-    System.out.println(duration);
   }
 }
