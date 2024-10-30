@@ -6,20 +6,28 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.wet.dictionary.util.Trie;
 import com.wet.dictionary.model.Entry;
 import com.wet.dictionary.util.CsvReader;
 import com.wet.dictionary.util.WordExtractor;
 
 @Service
 public class EntryService {
-  private static final String csv_path = EntryService.class.getResource("/data/filtered_words.csv").getFile();
+  private static final String CSV_PATH = EntryService.class.getResource("/data/filtered_words.csv").getFile();
 
+  private Trie trie;
   private List<Entry> dataList;
   // Hashmap should be <String, HashMap<String, String> where HashMap contains the
   // 3 languages waray, english, tagalog and the key should be the waray word
 
   public EntryService() {
-    this.dataList = CsvReader.readCsv(csv_path, Entry.class);
+    this.dataList = CsvReader.readCsv(CSV_PATH, Entry.class);
+    trie = new Trie();
+    trie.insertEntries(dataList);
+  }
+
+  public List<Entry> testQuery(String test) {
+    return trie.query(test);
   }
 
   public List<Entry> fetchAllData() {
@@ -68,5 +76,16 @@ public class EntryService {
       default:
         return entry.getWaray();
     } 
+  }
+
+  public static void main(String[] args) {
+    EntryService test = new EntryService();
+    
+    long startTime = System.currentTimeMillis();
+    //test.fetchByWord("mabigat");
+    List<Entry> testing = test.testQuery("a");
+    long endTime = System.currentTimeMillis();
+    long duration = endTime - startTime;
+    System.out.println(duration);
   }
 }

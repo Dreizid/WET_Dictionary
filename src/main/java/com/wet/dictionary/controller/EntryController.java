@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@RequestMapping("/fetch")
+@RequestMapping("/")
 public class EntryController {
 
   private final EntryService service;
